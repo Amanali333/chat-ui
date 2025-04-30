@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>My Chatbot</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: sans-serif;
+        height: 100vh;
+      }
+      #chat {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        padding: 10px;
+      }
+      #chat-box {
+        flex-grow: 1;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: auto;
+      }
+      input {
+        padding: 10px;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="chat">
+      <div id="chat-box">👋 Hello! How can I help you?</div>
+      <input type="text" placeholder="Type a message..." />
+    </div>
+  </body>
+</html>
