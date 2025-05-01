@@ -1,35 +1,123 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>My Chatbot</title>
-    <style>
-      body {
-        margin: 0;
-        font-family: sans-serif;
-        height: 100vh;
-      }
-      #chat {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        padding: 10px;
-      }
-      #chat-box {
-        flex-grow: 1;
-        border: 1px solid #ccc;
-        padding: 10px;
-        overflow-y: auto;
-      }
-      input {
-        padding: 10px;
-        margin-top: 10px;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="chat">
-      <div id="chat-box">👋 Hello! How can I help you?</div>
-      <input type="text" placeholder="Type a message..." />
-    </div>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Toggle Chat Widget</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+
+    #chat-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background-color: #007bff;
+      border-radius: 50%;
+      color: white;
+      font-size: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 10001;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #chat {
+      position: fixed;
+      bottom: 90px;
+      right: 20px;
+      width: 320px;
+      height: 450px;
+      background: white;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      z-index: 10000;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    #messages {
+      flex: 1;
+      padding: 10px;
+      overflow-y: auto;
+      background: #f9f9f9;
+    }
+
+    #inputBox {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+    }
+
+    #send {
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div id="chat">
+  <div id="messages"></div>
+  <div id="inputBox">
+    <input type="text" id="input" placeholder="Type a message..." />
+    <button id="send">Send</button>
+  </div>
+</div>
+
+<div id="chat-toggle">💬</div>
+
+<script>
+  const toggle = document.getElementById("chat-toggle");
+  const chat = document.getElementById("chat");
+  const messagesEl = document.getElementById('messages');
+  const inputEl = document.getElementById('input');
+  const sendBtn = document.getElementById('send');
+
+  toggle.onclick = () => {
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+  };
+
+  function appendMessage(text, from = 'user') {
+    const msg = document.createElement('div');
+    msg.textContent = (from === 'user' ? 'You: ' : 'Bot: ') + text;
+    msg.style.margin = '5px 0';
+    messagesEl.appendChild(msg);
+    messagesEl.scrollTop = messagesEl.scrollHeight;
+  }
+
+  sendBtn.onclick = async () => {
+    const text = inputEl.value.trim();
+    if (!text) return;
+
+    appendMessage(text, 'user');
+    inputEl.value = '';
+
+    const res = await fetch('https://your-backend.com/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text }),
+    });
+    const data = await res.json();
+    appendMessage(data.reply || 'No response', 'bot');
+  };
+</script>
+
+</body>
 </html>
