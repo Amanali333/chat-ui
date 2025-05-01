@@ -84,20 +84,15 @@
 <div id="chat-toggle">💬</div>
 
 <script>
-const toggle = document.getElementById("chat-toggle");
-const chat = document.getElementById("chat");
+  const toggle = document.getElementById("chat-toggle");
+  const chat = document.getElementById("chat");
   const messagesEl = document.getElementById('messages');
   const inputEl = document.getElementById('input');
   const sendBtn = document.getElementById('send');
 
   toggle.onclick = () => {
-  const isOpen = chat.style.display === "flex";
-  chat.style.display = isOpen ? "none" : "flex";
-
-  // Inform parent to toggle iframe pointer behavior
-  window.parent.postMessage({ type: isOpen ? "chat-closed" : "chat-open" }, "*");
-};
-
+    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
+  };
 
   function appendMessage(text, from = 'user') {
     const msg = document.createElement('div');
