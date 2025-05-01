@@ -91,8 +91,13 @@
   const sendBtn = document.getElementById('send');
 
   toggle.onclick = () => {
-    chat.style.display = chat.style.display === "flex" ? "none" : "flex";
-  };
+  const isOpen = chat.style.display === "flex";
+  chat.style.display = isOpen ? "none" : "flex";
+
+  // Inform parent page
+  window.parent.postMessage(isOpen ? "chat-closed" : "chat-open", "*");
+};
+
 
   function appendMessage(text, from = 'user') {
     const msg = document.createElement('div');
