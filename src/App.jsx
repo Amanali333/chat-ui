@@ -5,7 +5,7 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/webchat" element={<ChatBot />} />
+        <Route exact path="/" element={<ChatBot />} />
       </Routes>
     </Router>
   );
