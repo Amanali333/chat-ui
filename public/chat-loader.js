@@ -74,7 +74,7 @@
     frame.style.cssText = `position:fixed;bottom:${
       gap + 60
     }px;right:${gap}px;width:${W}px;
-  max-width:calc(100vw - 40px);height:${H}px;max-height:520px);
+  max-width:calc(100vw - 40px);height:${H}px;max-height:520px;
   border:none;border-radius:8px;display:block;opacity:0;pointer-events:none;
   transform:scale(.75);transform-origin:bottom right;z-index:9999;
   box-shadow:0 4px 12px rgba(0,0,0,.25);transition:transform .25s ease,opacity .25s ease`;
