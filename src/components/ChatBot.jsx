@@ -38,44 +38,44 @@ const TITLE = (() => {
   return "AI Assistant";
 })();
 
-const PRIMARY = (() => {
-  if (typeof window === "undefined") return "#146ef5";
-
-  const urlColor = new URLSearchParams(window.location.search).get("color");
-  const configColor = window.Chat360_Config?.color;
-
-  const normalizeColor = (color) => {
-    if (!color) return "#146ef5";
-
-    // If already starts with #, assume it's valid hex
-    if (color.startsWith("#")) return color;
-
-    // If it's a valid 3 or 6 character hex string (e.g., "146ef5" or "abc")
-    if (/^[0-9a-fA-F]{6}$/.test(color) || /^[0-9a-fA-F]{3}$/.test(color)) {
-      return `#${color}`;
-    }
-
-    // Else return as-is (e.g., "red", "rgb(255,0,0)")
-    return color;
-  };
-
-  return normalizeColor(urlColor) || normalizeColor(configColor) || "#146ef5";
-})();
-
-
 // const PRIMARY = (() => {
 //   if (typeof window === "undefined") return "#146ef5";
 
-//   /* 1️⃣ URL param sent by loader */
 //   const urlColor = new URLSearchParams(window.location.search).get("color");
-//   if (urlColor) return urlColor.startsWith("#") ? urlColor : `#${urlColor}`;
+//   const configColor = window.Chat360_Config?.color;
 
-//   /* 2️⃣ Fallback: global config if iframe served inline */
-//   if (window.Chat360_Config?.color) return window.Chat360_Config.color;
+//   const normalizeColor = (color) => {
+//     if (!color) return "#146ef5";
 
-//   /* 3️⃣ Hard-coded default */
-//   return "#146ef5";
+//     // If already starts with #, assume it's valid hex
+//     if (color.startsWith("#")) return color;
+
+//     // If it's a valid 3 or 6 character hex string (e.g., "146ef5" or "abc")
+//     if (/^[0-9a-fA-F]{6}$/.test(color) || /^[0-9a-fA-F]{3}$/.test(color)) {
+//       return `#${color}`;
+//     }
+
+//     // Else return as-is (e.g., "red", "rgb(255,0,0)")
+//     return color;
+//   };
+
+//   return normalizeColor(urlColor) || normalizeColor(configColor) || "#146ef5";
 // })();
+
+
+const PRIMARY = (() => {
+  if (typeof window === "undefined") return "#146ef5";
+
+  /* 1️⃣ URL param sent by loader */
+  const urlColor = new URLSearchParams(window.location.search).get("color");
+  if (urlColor) return urlColor.startsWith("#") ? urlColor : `#${urlColor}`;
+
+  /* 2️⃣ Fallback: global config if iframe served inline */
+  if (window.Chat360_Config?.color) return window.Chat360_Config.color;
+
+  /* 3️⃣ Hard-coded default */
+  return "#146ef5";
+})();
 
 const shade = (hex, lum = 0) => {
   // simple hex shade util
